@@ -1,5 +1,8 @@
 # future_button
 
+![Build status](https://img.shields.io/github/workflow/status/kekland/future_button/Test)
+![Pub version](https://img.shields.io/pub/v/future_button)
+
 Customizable Material and Cupertino buttons with progress indicators.
 
 Useful if you want to run some background tasks when user presses on the button.
