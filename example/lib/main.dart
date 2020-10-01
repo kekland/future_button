@@ -52,11 +52,20 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('Loadaksjdalksjdflkasdjfkjalsdjfls'),
               onPressed: waitFor,
             ),
+            FutureRaisedButton.icon(
+              icon: Icon(Icons.star),
+              label: Text('Loadaksjdalksjdflkasdjfkjalsdjfls'),
+              onPressed: waitFor,
+            ),
             FutureIconButton(
               icon: Icon(Icons.link),
               onPressed: waitFor,
             ),
             FutureCupertinoButton(
+              child: Text('Loadaksjdalksjdflkasdjfkjalsdjfls'),
+              onPressed: waitFor,
+            ),
+            FutureCupertinoButton.filled(
               child: Text('Loadaksjdalksjdflkasdjfkjalsdjfls'),
               onPressed: waitFor,
             ),
