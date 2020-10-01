@@ -15,34 +15,43 @@ final WidgetBuilder defaultCupertinoProgressIndicatorBuilder =
     (context) => SizedBox(
           width: 20.0,
           height: 20.0,
-          child: Cupertino.CupertinoActivityIndicator(radius: 16.0),
+          child: Cupertino.CupertinoActivityIndicator(radius: 8.0),
         );
+
+enum ProgressIndicatorLocation {
+  left,
+  center,
+  right,
+}
 
 abstract class GenericFutureButtonWidget extends StatefulWidget {
   final FutureCallback onPressed;
   final WidgetBuilder progressIndicatorBuilder;
   final Widget child;
-  final bool hideChild;
+  final ProgressIndicatorLocation progressIndicatorLocation;
 
   final Curve animationCurve;
   final Duration animationDuration;
-  final Alignment animationAlignment;
 
   const GenericFutureButtonWidget({
     Key key,
     @required this.onPressed,
     @required this.child,
     this.progressIndicatorBuilder,
-    this.hideChild = false,
-    this.animationCurve = Curves.easeInOut,
-    this.animationDuration = const Duration(milliseconds: 150),
-    this.animationAlignment = Alignment.centerRight,
-  }) : super(key: key);
+    ProgressIndicatorLocation progressIndicatorLocation,
+    Curve animationCurve,
+    Duration animationDuration,
+  })  : this.progressIndicatorLocation =
+            progressIndicatorLocation ?? ProgressIndicatorLocation.left,
+        this.animationDuration =
+            animationDuration ?? const Duration(milliseconds: 150),
+        this.animationCurve = animationCurve ?? Curves.easeInOut,
+        super(key: key);
 }
 
 abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
     extends State<T> with SingleTickerProviderStateMixin {
-  bool _isLoading;
+  bool _isLoading = false;
 
   bool get isLoading => _isLoading;
   bool get isEnabled => !isLoading && widget.onPressed != null;
@@ -51,19 +60,46 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
       widget.progressIndicatorBuilder ??
       defaultMaterialProgressIndicatorBuilder;
 
+  VerticalDirection get verticalDirection {
+    switch (widget.progressIndicatorLocation) {
+      case ProgressIndicatorLocation.left:
+        return VerticalDirection.up;
+      case ProgressIndicatorLocation.right:
+        return VerticalDirection.down;
+      default:
+        return null;
+    }
+  }
+
+  Alignment get animationAlignment {
+    switch (widget.progressIndicatorLocation) {
+      case ProgressIndicatorLocation.left:
+        return Alignment.centerRight;
+      case ProgressIndicatorLocation.center:
+        return Alignment.center;
+      case ProgressIndicatorLocation.right:
+        return Alignment.centerLeft;
+      default:
+        return null;
+    }
+  }
+
   Widget get child {
     if (!isLoading) {
       return widget.child;
-    } else if (!widget.hideChild) {
+    } else if (widget.progressIndicatorLocation ==
+        ProgressIndicatorLocation.center) {
+      return progressIndicatorBuilder(context);
+    } else {
       return Row(
+        mainAxisSize: MainAxisSize.min,
+        verticalDirection: verticalDirection,
         children: [
           progressIndicatorBuilder(context),
           SizedBox(width: 8.0),
           widget.child,
         ],
       );
-    } else {
-      return progressIndicatorBuilder(context);
     }
   }
 
@@ -93,7 +129,7 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
         vsync: this,
         duration: widget.animationDuration,
         curve: widget.animationCurve,
-        alignment: widget.animationAlignment,
+        alignment: animationAlignment,
         child: child,
       ),
       onPressed: isEnabled ? onPressed : null,

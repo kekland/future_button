@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:future_button/src/generic_future_button.dart';
 
 class FutureOutlineButton extends GenericFutureButtonWidget {
-  final Widget child;
-
   FutureOutlineButton({
     Key key,
     @required FutureCallback onPressed,
-    @required this.child,
+    @required Widget child,
+    Curve animationCurve,
+    Duration animationDuration,
     WidgetBuilder progressIndicatorBuilder,
-    bool hideChild = false,
+    ProgressIndicatorLocation progressIndicatorLocation,
   }) : super(
           key: key,
           child: child,
           onPressed: onPressed,
+          animationCurve: animationCurve,
+          animationDuration: animationDuration,
           progressIndicatorBuilder: progressIndicatorBuilder,
-          hideChild: hideChild,
+          progressIndicatorLocation: progressIndicatorLocation,
         );
 
   @override

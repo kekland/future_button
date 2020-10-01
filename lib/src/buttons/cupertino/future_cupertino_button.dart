@@ -2,21 +2,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:future_button/src/generic_future_button.dart';
 
 class FutureCupertinoButton extends GenericFutureButtonWidget {
-  final Widget child;
-
   FutureCupertinoButton({
     Key key,
     @required FutureCallback onPressed,
-    @required this.child,
+    @required Widget child,
+    Curve animationCurve,
+    Duration animationDuration,
     WidgetBuilder progressIndicatorBuilder,
-    bool hideChild = false,
+    ProgressIndicatorLocation progressIndicatorLocation,
   }) : super(
           key: key,
           child: child,
           onPressed: onPressed,
+          animationCurve: animationCurve,
+          animationDuration: animationDuration,
           progressIndicatorBuilder: progressIndicatorBuilder ??
               defaultCupertinoProgressIndicatorBuilder,
-          hideChild: hideChild,
+          progressIndicatorLocation: progressIndicatorLocation,
         );
 
   @override
