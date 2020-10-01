@@ -49,12 +49,17 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             FutureRaisedButton(
-              child: Text('Loadaksjdalksjdflkasdjfkjalsdjfls'),
+              child: Text('Load'),
               onPressed: waitFor,
+            ),
+            FutureRaisedButton(
+              child: Text('Load (right)'),
+              onPressed: waitFor,
+              progressIndicatorLocation: ProgressIndicatorLocation.right,
             ),
             FutureRaisedButton.icon(
               icon: Icon(Icons.star),
-              label: Text('Loadaksjdalksjdflkasdjfkjalsdjfls'),
+              label: Text('Star'),
               onPressed: waitFor,
             ),
             FutureIconButton(
@@ -62,11 +67,11 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: waitFor,
             ),
             FutureCupertinoButton(
-              child: Text('Loadaksjdalksjdflkasdjfkjalsdjfls'),
+              child: Text('Like'),
               onPressed: waitFor,
             ),
             FutureCupertinoButton.filled(
-              child: Text('Loadaksjdalksjdflkasdjfkjalsdjfls'),
+              child: Text('Like'),
               onPressed: waitFor,
             ),
           ],

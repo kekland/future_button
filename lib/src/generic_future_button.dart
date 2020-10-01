@@ -60,12 +60,12 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
       widget.progressIndicatorBuilder ??
       defaultMaterialProgressIndicatorBuilder;
 
-  VerticalDirection get verticalDirection {
+  TextDirection get textDirection {
     switch (widget.progressIndicatorLocation) {
       case ProgressIndicatorLocation.left:
-        return VerticalDirection.up;
+        return TextDirection.ltr;
       case ProgressIndicatorLocation.right:
-        return VerticalDirection.down;
+        return TextDirection.rtl;
       default:
         return null;
     }
@@ -93,7 +93,7 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
     } else {
       return Row(
         mainAxisSize: MainAxisSize.min,
-        verticalDirection: verticalDirection,
+        textDirection: textDirection,
         children: [
           progressIndicatorBuilder(context),
           SizedBox(width: 8.0),
