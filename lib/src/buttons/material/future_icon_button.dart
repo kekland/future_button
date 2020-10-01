@@ -1,37 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:future_button/src/generic_future_button.dart';
 
-class FutureRaisedButton extends GenericFutureButtonWidget {
+class FutureIconButton extends GenericFutureButtonWidget {
   final Widget child;
 
-  FutureRaisedButton({
+  FutureIconButton({
     Key key,
     @required FutureCallback onPressed,
     @required this.child,
     WidgetBuilder progressIndicatorBuilder,
-    bool hideChild = false,
   }) : super(
           key: key,
           child: child,
           onPressed: onPressed,
           progressIndicatorBuilder: progressIndicatorBuilder,
-          hideChild: hideChild,
+          hideChild: true,
         );
 
   @override
-  _FutureRaisedButtonState createState() => _FutureRaisedButtonState();
+  _FutureIconButtonState createState() => _FutureIconButtonState();
 }
 
-class _FutureRaisedButtonState
-    extends GenericFutureButtonState<FutureRaisedButton> {
+class _FutureIconButtonState
+    extends GenericFutureButtonState<FutureIconButton> {
   @override
   Widget buildButton({
     BuildContext context,
     Widget child,
     VoidCallback onPressed,
   }) {
-    return RaisedButton(
-      child: child,
+    return IconButton(
+      icon: child,
       onPressed: isEnabled ? onPressed : null,
     );
   }

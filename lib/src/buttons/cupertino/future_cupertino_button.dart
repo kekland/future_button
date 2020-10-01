@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:future_button/src/generic_future_button.dart';
 
-class FutureRaisedButton extends GenericFutureButtonWidget {
+class FutureCupertinoButton extends GenericFutureButtonWidget {
   final Widget child;
 
-  FutureRaisedButton({
+  FutureCupertinoButton({
     Key key,
     @required FutureCallback onPressed,
     @required this.child,
@@ -14,23 +14,24 @@ class FutureRaisedButton extends GenericFutureButtonWidget {
           key: key,
           child: child,
           onPressed: onPressed,
-          progressIndicatorBuilder: progressIndicatorBuilder,
+          progressIndicatorBuilder: progressIndicatorBuilder ??
+              defaultCupertinoProgressIndicatorBuilder,
           hideChild: hideChild,
         );
 
   @override
-  _FutureRaisedButtonState createState() => _FutureRaisedButtonState();
+  _FutureCupertinoButtonState createState() => _FutureCupertinoButtonState();
 }
 
-class _FutureRaisedButtonState
-    extends GenericFutureButtonState<FutureRaisedButton> {
+class _FutureCupertinoButtonState
+    extends GenericFutureButtonState<FutureCupertinoButton> {
   @override
   Widget buildButton({
     BuildContext context,
     Widget child,
     VoidCallback onPressed,
   }) {
-    return RaisedButton(
+    return CupertinoButton(
       child: child,
       onPressed: isEnabled ? onPressed : null,
     );

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:future_button/src/generic_future_button.dart';
 
-class FutureRaisedButton extends GenericFutureButtonWidget {
+class FutureFlatButton extends GenericFutureButtonWidget {
   final Widget child;
 
-  FutureRaisedButton({
+  FutureFlatButton({
     Key key,
     @required FutureCallback onPressed,
     @required this.child,
@@ -19,18 +19,18 @@ class FutureRaisedButton extends GenericFutureButtonWidget {
         );
 
   @override
-  _FutureRaisedButtonState createState() => _FutureRaisedButtonState();
+  _FutureFlatButtonState createState() => _FutureFlatButtonState();
 }
 
-class _FutureRaisedButtonState
-    extends GenericFutureButtonState<FutureRaisedButton> {
+class _FutureFlatButtonState
+    extends GenericFutureButtonState<FutureFlatButton> {
   @override
   Widget buildButton({
     BuildContext context,
     Widget child,
     VoidCallback onPressed,
   }) {
-    return RaisedButton(
+    return FlatButton(
       child: child,
       onPressed: isEnabled ? onPressed : null,
     );
