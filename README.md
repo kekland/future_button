@@ -1,5 +1,5 @@
 # future_button
-
+[![Coverage Status](https://coveralls.io/repos/github/kekland/future_button/badge.svg?branch=master)](https://coveralls.io/github/kekland/future_button?branch=master)
 ![Build status](https://img.shields.io/github/workflow/status/kekland/future_button/Test)
 ![Pub version](https://img.shields.io/pub/v/future_button)
 
