@@ -220,11 +220,13 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
   /// If the future is running and [widget.progressIndicatorLocation] is [ProgressIndicatorLocation.center], it'll display the progress indicator only.
   /// If the future is running and [widget.progressIndicatorLocation] is not [ProgressIndicatorLocation.center], it'll display the progress indicator and the child. The order depends on [textDirection].
   Widget get child {
+    Widget child;
+
     if (!isLoading) {
-      return widget.child;
+      child = widget.child;
     } else if (widget.progressIndicatorLocation ==
         ProgressIndicatorLocation.center) {
-      return _indicatorBuilder(context);
+      child = _indicatorBuilder(context);
     } else {
       return Row(
         mainAxisSize: MainAxisSize.min,
@@ -241,6 +243,13 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
         ],
       );
     }
+
+    return AnimatedSwitcher(
+      duration: widget.animationDuration,
+      switchInCurve: widget.animationCurve,
+      switchOutCurve: widget.animationCurve,
+      child: child,
+    );
   }
 
   /// The `onPressed` callback wrapper.

@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(Icons.star),
               label: Text('Star'),
               onPressed: waitFor,
-              showResult: true,
+              showResult: false,
             ),
             FutureIconButton(
               icon: Icon(Icons.link),
