@@ -25,6 +25,7 @@ class FutureCupertinoButton extends GenericFutureButtonWidget {
     WidgetBuilder progressIndicatorBuilder,
     WidgetBuilder successIndicatorBuilder,
     WidgetBuilder failureIndicatorBuilder,
+    Duration resultIndicatorDuration,
     ProgressIndicatorLocation progressIndicatorLocation,
     this.padding,
     this.color,
@@ -44,6 +45,7 @@ class FutureCupertinoButton extends GenericFutureButtonWidget {
               defaultCupertinoProgressIndicatorBuilder,
           successIndicatorBuilder: successIndicatorBuilder,
           failureIndicatorBuilder: failureIndicatorBuilder,
+          resultIndicatorDuration: resultIndicatorDuration,
           progressIndicatorLocation: progressIndicatorLocation,
         );
 
@@ -59,6 +61,7 @@ class FutureCupertinoButton extends GenericFutureButtonWidget {
     WidgetBuilder progressIndicatorBuilder,
     WidgetBuilder successIndicatorBuilder,
     WidgetBuilder failureIndicatorBuilder,
+    Duration resultIndicatorDuration,
     ProgressIndicatorLocation progressIndicatorLocation,
     this.padding,
     this.minSize,
@@ -78,6 +81,7 @@ class FutureCupertinoButton extends GenericFutureButtonWidget {
               defaultCupertinoProgressIndicatorBuilder,
           successIndicatorBuilder: successIndicatorBuilder,
           failureIndicatorBuilder: failureIndicatorBuilder,
+          resultIndicatorDuration: resultIndicatorDuration,
           progressIndicatorLocation: progressIndicatorLocation,
         );
 

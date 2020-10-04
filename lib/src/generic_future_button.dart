@@ -108,6 +108,10 @@ abstract class GenericFutureButtonWidget extends StatefulWidget {
   /// Defaults to [defaultFailureResultIndicatorBuilder].
   final WidgetBuilder failureIndicatorBuilder;
 
+  /// For how long should the result be shown for.
+  /// Default to `Duration(seconds: 2)`.
+  final Duration resultIndicatorDuration;
+
   /// Curve that's used to animate the button size.
   /// Defaults to [Curves.easeInOut].
   final Curve animationCurve;
@@ -127,11 +131,14 @@ abstract class GenericFutureButtonWidget extends StatefulWidget {
     ProgressIndicatorLocation progressIndicatorLocation,
     Curve animationCurve,
     Duration animationDuration,
+    Duration resultIndicatorDuration,
   })  : progressIndicatorLocation =
             progressIndicatorLocation ?? ProgressIndicatorLocation.left,
         animationDuration =
             animationDuration ?? const Duration(milliseconds: 150),
         animationCurve = animationCurve ?? Curves.easeInOut,
+        resultIndicatorDuration =
+            resultIndicatorDuration ?? const Duration(seconds: 2),
         super(key: key);
 }
 
@@ -265,7 +272,7 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
             : FutureButtonState.failed;
       });
 
-      await Future.delayed(const Duration(seconds: 2), () {
+      await Future.delayed(widget.resultIndicatorDuration, () {
         setState(() {
           _state = FutureButtonState.normal;
         });

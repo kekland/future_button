@@ -36,6 +36,7 @@ Future<void> testButtonWithArgs(
   FutureButtonBuilder builder,
   FutureCallback onTap,
   bool shouldError = false,
+  bool shouldShowResult = false,
 }) async {
   for (final progressIndicatorLocation in progressIndicatorLocations) {
     for (final progressIndicatorBuilder in progressIndicatorBuilders) {

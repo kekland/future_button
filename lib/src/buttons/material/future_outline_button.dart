@@ -40,6 +40,7 @@ class FutureOutlineButton extends GenericFutureButtonWidget {
     WidgetBuilder progressIndicatorBuilder,
     WidgetBuilder successIndicatorBuilder,
     WidgetBuilder failureIndicatorBuilder,
+    Duration resultIndicatorDuration,
     ProgressIndicatorLocation progressIndicatorLocation,
     this.onLongPress,
     this.mouseCursor,
@@ -72,6 +73,7 @@ class FutureOutlineButton extends GenericFutureButtonWidget {
           progressIndicatorBuilder: progressIndicatorBuilder,
           successIndicatorBuilder: successIndicatorBuilder,
           failureIndicatorBuilder: failureIndicatorBuilder,
+          resultIndicatorDuration: resultIndicatorDuration,
           progressIndicatorLocation: progressIndicatorLocation,
         );
 
@@ -88,6 +90,7 @@ class FutureOutlineButton extends GenericFutureButtonWidget {
     WidgetBuilder progressIndicatorBuilder,
     WidgetBuilder successIndicatorBuilder,
     WidgetBuilder failureIndicatorBuilder,
+    Duration resultIndicatorDuration,
     ProgressIndicatorLocation progressIndicatorLocation,
     this.onLongPress,
     this.mouseCursor,
@@ -119,6 +122,7 @@ class FutureOutlineButton extends GenericFutureButtonWidget {
           progressIndicatorBuilder: progressIndicatorBuilder,
           successIndicatorBuilder: successIndicatorBuilder,
           failureIndicatorBuilder: failureIndicatorBuilder,
+          resultIndicatorDuration: resultIndicatorDuration,
           progressIndicatorLocation: progressIndicatorLocation,
         );
 

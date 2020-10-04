@@ -40,6 +40,7 @@ class FutureFlatButton extends GenericFutureButtonWidget {
     WidgetBuilder progressIndicatorBuilder,
     WidgetBuilder successIndicatorBuilder,
     WidgetBuilder failureIndicatorBuilder,
+    Duration resultIndicatorDuration,
     ProgressIndicatorLocation progressIndicatorLocation,
     this.onLongPress,
     this.onHighlightChanged,
@@ -72,6 +73,7 @@ class FutureFlatButton extends GenericFutureButtonWidget {
           progressIndicatorBuilder: progressIndicatorBuilder,
           successIndicatorBuilder: successIndicatorBuilder,
           failureIndicatorBuilder: failureIndicatorBuilder,
+          resultIndicatorDuration: resultIndicatorDuration,
           progressIndicatorLocation: progressIndicatorLocation,
         );
 
@@ -88,6 +90,7 @@ class FutureFlatButton extends GenericFutureButtonWidget {
     WidgetBuilder progressIndicatorBuilder,
     WidgetBuilder successIndicatorBuilder,
     WidgetBuilder failureIndicatorBuilder,
+    Duration resultIndicatorDuration,
     ProgressIndicatorLocation progressIndicatorLocation,
     this.onLongPress,
     this.onHighlightChanged,
@@ -119,6 +122,7 @@ class FutureFlatButton extends GenericFutureButtonWidget {
           progressIndicatorBuilder: progressIndicatorBuilder,
           successIndicatorBuilder: successIndicatorBuilder,
           failureIndicatorBuilder: failureIndicatorBuilder,
+          resultIndicatorDuration: resultIndicatorDuration,
           progressIndicatorLocation: progressIndicatorLocation,
         );
 

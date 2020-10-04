@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             FutureCupertinoButton.filled(
               child: Text('Like'),
-              onPressed: waitFor,
+              onPressed: waitForAndFail,
               showResult: true,
             ),
           ],
