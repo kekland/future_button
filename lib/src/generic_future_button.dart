@@ -100,6 +100,10 @@ abstract class GenericFutureButtonWidget extends StatefulWidget {
   /// Otherwise, will show [failureIndicatorBuilder].
   final bool showResult;
 
+  /// Whether to animate the transitions using [AnimatedSwitcher].
+  /// Defaults to [true].
+  final bool animateTransitions;
+
   /// Indicator to show when the Future is completed successfully.
   /// Defaults to [defaultSuccessResultIndicatorBuilder].
   final WidgetBuilder successIndicatorBuilder;
@@ -128,6 +132,7 @@ abstract class GenericFutureButtonWidget extends StatefulWidget {
     this.successIndicatorBuilder,
     this.failureIndicatorBuilder,
     this.showResult = false,
+    this.animateTransitions = true,
     ProgressIndicatorLocation progressIndicatorLocation,
     Curve animationCurve,
     Duration animationDuration,
@@ -243,6 +248,8 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
         ],
       );
     }
+
+    if (!widget.animateTransitions) return child;
 
     return AnimatedSwitcher(
       duration: widget.animationDuration,

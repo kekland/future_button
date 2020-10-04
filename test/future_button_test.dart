@@ -6,8 +6,9 @@ import 'package:future_button/future_button.dart';
 
 class PlannedException implements Exception {}
 
-const waitDuration = Duration(milliseconds: 100);
-const resultIndicatorDuration = Duration(milliseconds: 100);
+const waitDuration = Duration(milliseconds: 150);
+const animationDuration = Duration(milliseconds: 50);
+const resultIndicatorDuration = Duration(milliseconds: 150);
 
 final progressIndicatorBuilders = <WidgetBuilder>[
   defaultMaterialProgressIndicatorBuilder,
@@ -34,6 +35,10 @@ Future<void> waitForAndFail() async {
 
 Future<void> waitFor() {
   return Future.delayed(waitDuration);
+}
+
+Future<void> waitForAnimation() {
+  return Future.delayed(animationDuration);
 }
 
 Future<void> waitForResultIndicator() {
@@ -226,6 +231,8 @@ void main() {
         successIndicatorBuilder: successIndicatorBuilder,
         failureIndicatorBuilder: failureIndicatorBuilder,
         showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
         resultIndicatorDuration: resultIndicatorDuration,
       );
     },
@@ -250,6 +257,8 @@ void main() {
         successIndicatorBuilder: successIndicatorBuilder,
         failureIndicatorBuilder: failureIndicatorBuilder,
         showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
         resultIndicatorDuration: resultIndicatorDuration,
       );
     },
@@ -274,6 +283,8 @@ void main() {
         successIndicatorBuilder: successIndicatorBuilder,
         failureIndicatorBuilder: failureIndicatorBuilder,
         showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
         resultIndicatorDuration: resultIndicatorDuration,
       );
     },
@@ -299,6 +310,8 @@ void main() {
         successIndicatorBuilder: successIndicatorBuilder,
         failureIndicatorBuilder: failureIndicatorBuilder,
         showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
         resultIndicatorDuration: resultIndicatorDuration,
       );
     },
@@ -322,6 +335,8 @@ void main() {
         successIndicatorBuilder: successIndicatorBuilder,
         failureIndicatorBuilder: failureIndicatorBuilder,
         showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
         resultIndicatorDuration: resultIndicatorDuration,
       );
     },
@@ -346,6 +361,8 @@ void main() {
         successIndicatorBuilder: successIndicatorBuilder,
         failureIndicatorBuilder: failureIndicatorBuilder,
         showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
         resultIndicatorDuration: resultIndicatorDuration,
       );
     },
@@ -371,6 +388,8 @@ void main() {
         successIndicatorBuilder: successIndicatorBuilder,
         failureIndicatorBuilder: failureIndicatorBuilder,
         showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
         resultIndicatorDuration: resultIndicatorDuration,
       );
     },
@@ -395,6 +414,8 @@ void main() {
         successIndicatorBuilder: successIndicatorBuilder,
         failureIndicatorBuilder: failureIndicatorBuilder,
         showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
         resultIndicatorDuration: resultIndicatorDuration,
       );
     },
@@ -420,6 +441,8 @@ void main() {
         successIndicatorBuilder: successIndicatorBuilder,
         failureIndicatorBuilder: failureIndicatorBuilder,
         showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
         resultIndicatorDuration: resultIndicatorDuration,
       );
     },

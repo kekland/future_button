@@ -22,6 +22,7 @@ class FutureCupertinoButton extends GenericFutureButtonWidget {
     Curve animationCurve,
     Duration animationDuration,
     bool showResult = false,
+    bool animateTransitions = true,
     WidgetBuilder progressIndicatorBuilder,
     WidgetBuilder successIndicatorBuilder,
     WidgetBuilder failureIndicatorBuilder,
@@ -41,6 +42,7 @@ class FutureCupertinoButton extends GenericFutureButtonWidget {
           animationCurve: animationCurve,
           animationDuration: animationDuration,
           showResult: showResult,
+          animateTransitions: animateTransitions,
           progressIndicatorBuilder: progressIndicatorBuilder ??
               defaultCupertinoProgressIndicatorBuilder,
           successIndicatorBuilder: successIndicatorBuilder,
@@ -58,6 +60,7 @@ class FutureCupertinoButton extends GenericFutureButtonWidget {
     Curve animationCurve,
     Duration animationDuration,
     bool showResult = false,
+    bool animateTransitions = true,
     WidgetBuilder progressIndicatorBuilder,
     WidgetBuilder successIndicatorBuilder,
     WidgetBuilder failureIndicatorBuilder,
@@ -77,6 +80,7 @@ class FutureCupertinoButton extends GenericFutureButtonWidget {
           animationCurve: animationCurve,
           animationDuration: animationDuration,
           showResult: showResult,
+          animateTransitions: animateTransitions,
           progressIndicatorBuilder: progressIndicatorBuilder ??
               defaultCupertinoProgressIndicatorBuilder,
           successIndicatorBuilder: successIndicatorBuilder,
