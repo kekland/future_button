@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter/material.dart' as Material;
-import 'package:flutter/cupertino.dart' as Cupertino;
+import 'package:flutter/material.dart' as material;
+import 'package:flutter/cupertino.dart' as cupertino;
 
 /// An `onPressed` function type for [GenericFutureButtonWidget].
 /// It's different from default [VoidCallback] in a sense that the action of the widget is asynchronous.
@@ -12,7 +12,7 @@ final WidgetBuilder defaultMaterialProgressIndicatorBuilder =
     (context) => SizedBox(
           width: 20.0,
           height: 20.0,
-          child: Material.CircularProgressIndicator(strokeWidth: 2.0),
+          child: material.CircularProgressIndicator(strokeWidth: 2.0),
         );
 
 /// A default Cupertino progress indicator. It uses [Cupertino.CupertinoActivityIndicator].
@@ -21,7 +21,7 @@ final WidgetBuilder defaultCupertinoProgressIndicatorBuilder =
     (context) => SizedBox(
           width: 20.0,
           height: 20.0,
-          child: Cupertino.CupertinoActivityIndicator(radius: 8.0),
+          child: cupertino.CupertinoActivityIndicator(radius: 8.0),
         );
 
 /// The location of the progress indicator.
@@ -76,11 +76,11 @@ abstract class GenericFutureButtonWidget extends StatefulWidget {
     ProgressIndicatorLocation progressIndicatorLocation,
     Curve animationCurve,
     Duration animationDuration,
-  })  : this.progressIndicatorLocation =
+  })  : progressIndicatorLocation =
             progressIndicatorLocation ?? ProgressIndicatorLocation.left,
-        this.animationDuration =
+        animationDuration =
             animationDuration ?? const Duration(milliseconds: 150),
-        this.animationCurve = animationCurve ?? Curves.easeInOut,
+        animationCurve = animationCurve ?? Curves.easeInOut,
         super(key: key);
 }
 
