@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:future_button/src/generic_future_button.dart';
 
+/// A Future version of the material [FlatButton].
+/// See [FlatButton] for parameter descriptions.
 class FutureFlatButton extends GenericFutureButtonWidget {
   final Widget icon;
   final VoidCallback onLongPress;
@@ -25,6 +27,9 @@ class FutureFlatButton extends GenericFutureButtonWidget {
   final bool autofocus;
   final MaterialTapTargetSize materialTapTargetSize;
 
+  /// Default [FutureFlatButton] constructor.
+  /// If you want to add an icon, see [FutureFlatButton.icon].
+  /// See [FlatButton] for more info.
   FutureFlatButton({
     Key key,
     @required FutureCallback onPressed,
@@ -64,6 +69,8 @@ class FutureFlatButton extends GenericFutureButtonWidget {
           progressIndicatorLocation: progressIndicatorLocation,
         );
 
+  /// A [FutureFlatButton] with an icon.
+  /// See [FlatButton.icon] for more info.
   FutureFlatButton.icon({
     Key key,
     @required FutureCallback onPressed,

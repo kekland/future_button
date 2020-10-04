@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:future_button/src/generic_future_button.dart';
 
+/// A Future version of [CupertinoButton].
+/// See [CupertinoButton] for parameter descriptions.
 class FutureCupertinoButton extends GenericFutureButtonWidget {
   final EdgeInsetsGeometry padding;
   final Color color;
@@ -10,6 +12,9 @@ class FutureCupertinoButton extends GenericFutureButtonWidget {
   final BorderRadius borderRadius;
   final bool filled;
 
+  /// Default [FutureCupertinoButton] constructor.
+  /// If you want to make it filled, see [FutureCupertinoButton.filled].
+  /// See [CupertinoButton] for more info.
   FutureCupertinoButton({
     Key key,
     @required FutureCallback onPressed,
@@ -36,6 +41,8 @@ class FutureCupertinoButton extends GenericFutureButtonWidget {
           progressIndicatorLocation: progressIndicatorLocation,
         );
 
+  /// A filled [FutureCupertinoButton].
+  /// See [CupertinoButton.filled] for more info.
   FutureCupertinoButton.filled({
     Key key,
     @required FutureCallback onPressed,

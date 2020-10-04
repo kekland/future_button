@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:future_button/src/generic_future_button.dart';
 
+/// A Future version of the material [RasiedButton].
+/// See [RaisedButton] for parameter descriptions.
 class FutureRaisedButton extends GenericFutureButtonWidget {
   final VoidCallback onLongPress;
   final ValueChanged<bool> onHighlightChanged;
@@ -31,6 +33,9 @@ class FutureRaisedButton extends GenericFutureButtonWidget {
 
   final Widget icon;
 
+  /// Default [FutureRaisedButton] constructor.
+  /// If you want to add an icon, see [FutureRaisedButton.icon].
+  /// See [RaisedButton] for more info.
   FutureRaisedButton({
     Key key,
     @required FutureCallback onPressed,
@@ -75,6 +80,8 @@ class FutureRaisedButton extends GenericFutureButtonWidget {
           progressIndicatorLocation: progressIndicatorLocation,
         );
 
+  /// A [FutureRaisedButton] with an icon.
+  /// See [RaisedButton.icon] for more info.
   FutureRaisedButton.icon({
     Key key,
     @required FutureCallback onPressed,
