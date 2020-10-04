@@ -6,16 +6,24 @@ import 'package:future_button/future_button.dart';
 
 class PlannedException implements Exception {}
 
-const waitDuration = Duration(milliseconds: 100);
+const waitDuration = Duration(milliseconds: 150);
+const animationDuration = Duration(milliseconds: 50);
+const resultIndicatorDuration = Duration(milliseconds: 150);
 
 final progressIndicatorBuilders = <WidgetBuilder>[
   defaultMaterialProgressIndicatorBuilder,
   defaultCupertinoProgressIndicatorBuilder,
 ];
 
+final successIndicatorBuilder = defaultSuccessResultIndicatorBuilder;
+final failureIndicatorBuilder = defaultFailureResultIndicatorBuilder;
+
 typedef FutureButtonBuilder = Widget Function({
   FutureCallback onPressed,
   WidgetBuilder progressIndicatorBuilder,
+  WidgetBuilder successIndicatorBuilder,
+  WidgetBuilder failureIndicatorBuilder,
+  bool showResult,
   Widget child,
   ProgressIndicatorLocation progressIndicatorLocation,
 });
@@ -29,6 +37,14 @@ Future<void> waitFor() {
   return Future.delayed(waitDuration);
 }
 
+Future<void> waitForAnimation() {
+  return Future.delayed(animationDuration);
+}
+
+Future<void> waitForResultIndicator() {
+  return Future.delayed(resultIndicatorDuration);
+}
+
 Future<void> testButtonWithArgs(
   WidgetTester tester, {
   List<ProgressIndicatorLocation> progressIndicatorLocations =
@@ -36,16 +52,22 @@ Future<void> testButtonWithArgs(
   FutureButtonBuilder builder,
   FutureCallback onTap,
   bool shouldError = false,
+  bool shouldShowResultIndicator = false,
 }) async {
   for (final progressIndicatorLocation in progressIndicatorLocations) {
     for (final progressIndicatorBuilder in progressIndicatorBuilders) {
       final child = Container();
       final progressIndicator = progressIndicatorBuilder(null);
+      final successIndicator = progressIndicatorBuilder(null);
+      final failureIndicator = progressIndicatorBuilder(null);
 
       final widget = builder(
         onPressed: onTap,
         progressIndicatorBuilder: (_) => progressIndicator,
+        successIndicatorBuilder: (_) => successIndicator,
+        failureIndicatorBuilder: (_) => failureIndicator,
         progressIndicatorLocation: progressIndicatorLocation,
+        showResult: shouldShowResultIndicator,
         child: child,
       );
 
@@ -87,12 +109,44 @@ Future<void> testButtonWithArgs(
           await tester.pump();
         });
 
-        expect(find.byWidget(widget), findsOneWidget);
-        expect(find.byWidget(child), findsOneWidget);
-        expect(find.byWidget(progressIndicator), findsNothing);
+        if (shouldShowResultIndicator) {
+          expect(find.byWidget(widget), findsOneWidget);
 
-        expect(state.isLoading, equals(false));
-        expect(state.isEnabled, equals(true));
+          if (progressIndicatorLocation == ProgressIndicatorLocation.center) {
+            expect(find.byWidget(child), findsNothing);
+          } else {
+            expect(find.byWidget(child), findsOneWidget);
+          }
+
+          expect(find.byWidget(progressIndicator), findsNothing);
+          expect(
+              find.byWidget(shouldError ? failureIndicator : successIndicator),
+              findsOneWidget);
+
+          expect(state.isLoading, equals(true));
+          expect(state.isEnabled, equals(false));
+
+          await tester.runAsync(() async {
+            await waitForResultIndicator();
+            await tester.pump();
+          });
+
+          expect(find.byWidget(widget), findsOneWidget);
+          expect(find.byWidget(child), findsOneWidget);
+          expect(find.byWidget(successIndicator), findsNothing);
+          expect(find.byWidget(failureIndicator), findsNothing);
+          expect(find.byWidget(progressIndicator), findsNothing);
+
+          expect(state.isLoading, equals(false));
+          expect(state.isEnabled, equals(true));
+        } else {
+          expect(find.byWidget(widget), findsOneWidget);
+          expect(find.byWidget(child), findsOneWidget);
+          expect(find.byWidget(progressIndicator), findsNothing);
+
+          expect(state.isLoading, equals(false));
+          expect(state.isEnabled, equals(true));
+        }
       }
     }
   }
@@ -128,8 +182,22 @@ void testButton({
     },
   );
 
-  /* testWidgets(
-    'Test failing $name',
+  testWidgets(
+    'Test success result $name',
+    (tester) async {
+      await testButtonWithArgs(
+        tester,
+        builder: builder,
+        onTap: waitFor,
+        progressIndicatorLocations: progressIndicatorLocations,
+        shouldError: false,
+        shouldShowResultIndicator: true,
+      );
+    },
+  );
+
+  testWidgets(
+    'Test failure result $name',
     (tester) async {
       await testButtonWithArgs(
         tester,
@@ -137,9 +205,10 @@ void testButton({
         onTap: waitForAndFail,
         progressIndicatorLocations: progressIndicatorLocations,
         shouldError: true,
+        shouldShowResultIndicator: true,
       );
     },
-  ); */
+  );
 }
 
 void main() {
@@ -148,6 +217,9 @@ void main() {
     builder: ({
       FutureCallback onPressed,
       WidgetBuilder progressIndicatorBuilder,
+      WidgetBuilder successIndicatorBuilder,
+      WidgetBuilder failureIndicatorBuilder,
+      bool showResult,
       Widget child,
       ProgressIndicatorLocation progressIndicatorLocation,
     }) {
@@ -156,6 +228,12 @@ void main() {
         onPressed: onPressed,
         progressIndicatorLocation: progressIndicatorLocation,
         progressIndicatorBuilder: progressIndicatorBuilder,
+        successIndicatorBuilder: successIndicatorBuilder,
+        failureIndicatorBuilder: failureIndicatorBuilder,
+        showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
+        resultIndicatorDuration: resultIndicatorDuration,
       );
     },
   );
@@ -165,6 +243,9 @@ void main() {
     builder: ({
       FutureCallback onPressed,
       WidgetBuilder progressIndicatorBuilder,
+      WidgetBuilder successIndicatorBuilder,
+      WidgetBuilder failureIndicatorBuilder,
+      bool showResult,
       Widget child,
       ProgressIndicatorLocation progressIndicatorLocation,
     }) {
@@ -173,6 +254,12 @@ void main() {
         onPressed: onPressed,
         progressIndicatorLocation: progressIndicatorLocation,
         progressIndicatorBuilder: progressIndicatorBuilder,
+        successIndicatorBuilder: successIndicatorBuilder,
+        failureIndicatorBuilder: failureIndicatorBuilder,
+        showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
+        resultIndicatorDuration: resultIndicatorDuration,
       );
     },
   );
@@ -182,6 +269,9 @@ void main() {
     builder: ({
       FutureCallback onPressed,
       WidgetBuilder progressIndicatorBuilder,
+      WidgetBuilder successIndicatorBuilder,
+      WidgetBuilder failureIndicatorBuilder,
+      bool showResult,
       Widget child,
       ProgressIndicatorLocation progressIndicatorLocation,
     }) {
@@ -190,6 +280,12 @@ void main() {
         onPressed: onPressed,
         progressIndicatorLocation: progressIndicatorLocation,
         progressIndicatorBuilder: progressIndicatorBuilder,
+        successIndicatorBuilder: successIndicatorBuilder,
+        failureIndicatorBuilder: failureIndicatorBuilder,
+        showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
+        resultIndicatorDuration: resultIndicatorDuration,
       );
     },
   );
@@ -199,6 +295,9 @@ void main() {
     builder: ({
       FutureCallback onPressed,
       WidgetBuilder progressIndicatorBuilder,
+      WidgetBuilder successIndicatorBuilder,
+      WidgetBuilder failureIndicatorBuilder,
+      bool showResult,
       Widget child,
       ProgressIndicatorLocation progressIndicatorLocation,
     }) {
@@ -208,6 +307,12 @@ void main() {
         onPressed: onPressed,
         progressIndicatorLocation: progressIndicatorLocation,
         progressIndicatorBuilder: progressIndicatorBuilder,
+        successIndicatorBuilder: successIndicatorBuilder,
+        failureIndicatorBuilder: failureIndicatorBuilder,
+        showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
+        resultIndicatorDuration: resultIndicatorDuration,
       );
     },
   );
@@ -217,6 +322,9 @@ void main() {
     builder: ({
       FutureCallback onPressed,
       WidgetBuilder progressIndicatorBuilder,
+      WidgetBuilder successIndicatorBuilder,
+      WidgetBuilder failureIndicatorBuilder,
+      bool showResult,
       Widget child,
       ProgressIndicatorLocation progressIndicatorLocation,
     }) {
@@ -224,6 +332,12 @@ void main() {
         icon: child,
         onPressed: onPressed,
         progressIndicatorBuilder: progressIndicatorBuilder,
+        successIndicatorBuilder: successIndicatorBuilder,
+        failureIndicatorBuilder: failureIndicatorBuilder,
+        showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
+        resultIndicatorDuration: resultIndicatorDuration,
       );
     },
   );
@@ -233,6 +347,9 @@ void main() {
     builder: ({
       FutureCallback onPressed,
       WidgetBuilder progressIndicatorBuilder,
+      WidgetBuilder successIndicatorBuilder,
+      WidgetBuilder failureIndicatorBuilder,
+      bool showResult,
       Widget child,
       ProgressIndicatorLocation progressIndicatorLocation,
     }) {
@@ -241,6 +358,12 @@ void main() {
         onPressed: onPressed,
         progressIndicatorLocation: progressIndicatorLocation,
         progressIndicatorBuilder: progressIndicatorBuilder,
+        successIndicatorBuilder: successIndicatorBuilder,
+        failureIndicatorBuilder: failureIndicatorBuilder,
+        showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
+        resultIndicatorDuration: resultIndicatorDuration,
       );
     },
   );
@@ -250,6 +373,9 @@ void main() {
     builder: ({
       FutureCallback onPressed,
       WidgetBuilder progressIndicatorBuilder,
+      WidgetBuilder successIndicatorBuilder,
+      WidgetBuilder failureIndicatorBuilder,
+      bool showResult,
       Widget child,
       ProgressIndicatorLocation progressIndicatorLocation,
     }) {
@@ -259,6 +385,12 @@ void main() {
         onPressed: onPressed,
         progressIndicatorLocation: progressIndicatorLocation,
         progressIndicatorBuilder: progressIndicatorBuilder,
+        successIndicatorBuilder: successIndicatorBuilder,
+        failureIndicatorBuilder: failureIndicatorBuilder,
+        showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
+        resultIndicatorDuration: resultIndicatorDuration,
       );
     },
   );
@@ -268,6 +400,9 @@ void main() {
     builder: ({
       FutureCallback onPressed,
       WidgetBuilder progressIndicatorBuilder,
+      WidgetBuilder successIndicatorBuilder,
+      WidgetBuilder failureIndicatorBuilder,
+      bool showResult,
       Widget child,
       ProgressIndicatorLocation progressIndicatorLocation,
     }) {
@@ -276,6 +411,12 @@ void main() {
         onPressed: onPressed,
         progressIndicatorLocation: progressIndicatorLocation,
         progressIndicatorBuilder: progressIndicatorBuilder,
+        successIndicatorBuilder: successIndicatorBuilder,
+        failureIndicatorBuilder: failureIndicatorBuilder,
+        showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
+        resultIndicatorDuration: resultIndicatorDuration,
       );
     },
   );
@@ -285,6 +426,9 @@ void main() {
     builder: ({
       FutureCallback onPressed,
       WidgetBuilder progressIndicatorBuilder,
+      WidgetBuilder successIndicatorBuilder,
+      WidgetBuilder failureIndicatorBuilder,
+      bool showResult,
       Widget child,
       ProgressIndicatorLocation progressIndicatorLocation,
     }) {
@@ -294,6 +438,12 @@ void main() {
         onPressed: onPressed,
         progressIndicatorLocation: progressIndicatorLocation,
         progressIndicatorBuilder: progressIndicatorBuilder,
+        successIndicatorBuilder: successIndicatorBuilder,
+        failureIndicatorBuilder: failureIndicatorBuilder,
+        showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
+        resultIndicatorDuration: resultIndicatorDuration,
       );
     },
   );

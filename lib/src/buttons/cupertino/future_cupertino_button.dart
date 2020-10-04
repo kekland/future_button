@@ -21,7 +21,12 @@ class FutureCupertinoButton extends GenericFutureButtonWidget {
     @required Widget child,
     Curve animationCurve,
     Duration animationDuration,
+    bool showResult = false,
+    bool animateTransitions = true,
     WidgetBuilder progressIndicatorBuilder,
+    WidgetBuilder successIndicatorBuilder,
+    WidgetBuilder failureIndicatorBuilder,
+    Duration resultIndicatorDuration,
     ProgressIndicatorLocation progressIndicatorLocation,
     this.padding,
     this.color,
@@ -36,8 +41,13 @@ class FutureCupertinoButton extends GenericFutureButtonWidget {
           onPressed: onPressed,
           animationCurve: animationCurve,
           animationDuration: animationDuration,
+          showResult: showResult,
+          animateTransitions: animateTransitions,
           progressIndicatorBuilder: progressIndicatorBuilder ??
               defaultCupertinoProgressIndicatorBuilder,
+          successIndicatorBuilder: successIndicatorBuilder,
+          failureIndicatorBuilder: failureIndicatorBuilder,
+          resultIndicatorDuration: resultIndicatorDuration,
           progressIndicatorLocation: progressIndicatorLocation,
         );
 
@@ -49,7 +59,12 @@ class FutureCupertinoButton extends GenericFutureButtonWidget {
     @required Widget child,
     Curve animationCurve,
     Duration animationDuration,
+    bool showResult = false,
+    bool animateTransitions = true,
     WidgetBuilder progressIndicatorBuilder,
+    WidgetBuilder successIndicatorBuilder,
+    WidgetBuilder failureIndicatorBuilder,
+    Duration resultIndicatorDuration,
     ProgressIndicatorLocation progressIndicatorLocation,
     this.padding,
     this.minSize,
@@ -64,8 +79,13 @@ class FutureCupertinoButton extends GenericFutureButtonWidget {
           onPressed: onPressed,
           animationCurve: animationCurve,
           animationDuration: animationDuration,
+          showResult: showResult,
+          animateTransitions: animateTransitions,
           progressIndicatorBuilder: progressIndicatorBuilder ??
               defaultCupertinoProgressIndicatorBuilder,
+          successIndicatorBuilder: successIndicatorBuilder,
+          failureIndicatorBuilder: failureIndicatorBuilder,
+          resultIndicatorDuration: resultIndicatorDuration,
           progressIndicatorLocation: progressIndicatorLocation,
         );
 
