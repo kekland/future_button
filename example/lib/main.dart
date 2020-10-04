@@ -38,6 +38,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return Future.delayed(Duration(seconds: seconds));
   }
 
+  Future<void> waitForAndFail([int seconds = 2]) async {
+    await Future.delayed(Duration(seconds: seconds));
+    throw Exception();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,25 +60,30 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             FutureRaisedButton(
               child: Text('Load (right)'),
-              onPressed: waitFor,
+              onPressed: waitForAndFail,
               progressIndicatorLocation: ProgressIndicatorLocation.right,
+              showResult: true,
             ),
             FutureRaisedButton.icon(
               icon: Icon(Icons.star),
               label: Text('Star'),
               onPressed: waitFor,
+              showResult: true,
             ),
             FutureIconButton(
               icon: Icon(Icons.link),
               onPressed: waitFor,
+              showResult: true,
             ),
             FutureCupertinoButton(
               child: Text('Like'),
               onPressed: waitFor,
+              showResult: true,
             ),
             FutureCupertinoButton.filled(
               child: Text('Like'),
               onPressed: waitFor,
+              showResult: true,
             ),
           ],
         ),
