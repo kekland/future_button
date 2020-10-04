@@ -1,6 +1,6 @@
 name: future_button
-description: Customizable Material and Cupertino buttons with progress bars. Useful if you want to show a loading indicator when user presses some action.
-version: 0.0.2
+description: Customizable Material and Cupertino buttons with progress bars. Useful if you want to show a loading indicator when user presses some action, and show the result afterwards.
+version: 0.1.0
 author: kekland <kk.erzhan@gmail.com>
 homepage: https://github.com/kekland/future_button
 repository: https://github.com/kekland/future_button
