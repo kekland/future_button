@@ -35,7 +35,7 @@ final WidgetBuilder defaultSuccessResultIndicatorBuilder =
           ),
           alignment: Alignment.center,
           child: Icon(
-            material.Icons.check_rounded,
+            material.Icons.check,
             size: 16.0,
             color: material.Colors.white,
           ),
@@ -52,7 +52,7 @@ final WidgetBuilder defaultFailureResultIndicatorBuilder =
           ),
           alignment: Alignment.center,
           child: Icon(
-            material.Icons.error_outline_rounded,
+            material.Icons.error_outline,
             size: 16.0,
             color: material.Colors.white,
           ),

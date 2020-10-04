@@ -1,3 +1,7 @@
+## [0.1.2] - 04.10.2020
+
+* Fix missing icons from Flutter v1.22.0
+
 ## [0.1.1] - 04.10.2020
 
 * Update `README.md`
