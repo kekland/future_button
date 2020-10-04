@@ -24,6 +24,40 @@ final WidgetBuilder defaultCupertinoProgressIndicatorBuilder =
           child: cupertino.CupertinoActivityIndicator(radius: 8.0),
         );
 
+/// A default widget for "success" result indicator.
+final WidgetBuilder defaultSuccessResultIndicatorBuilder =
+    (context) => Container(
+          width: 20.0,
+          height: 20.0,
+          decoration: BoxDecoration(
+            color: material.Colors.green,
+            shape: BoxShape.circle,
+          ),
+          alignment: Alignment.center,
+          child: Icon(
+            material.Icons.check_rounded,
+            size: 16.0,
+            color: material.Colors.white,
+          ),
+        );
+
+/// A default widget for "failed" result indicator.
+final WidgetBuilder defaultFailureResultIndicatorBuilder =
+    (context) => Container(
+          width: 20.0,
+          height: 20.0,
+          decoration: BoxDecoration(
+            color: material.Colors.red,
+            shape: BoxShape.circle,
+          ),
+          alignment: Alignment.center,
+          child: Icon(
+            material.Icons.error,
+            size: 16.0,
+            color: material.Colors.white,
+          ),
+        );
+
 /// The location of the progress indicator.
 /// [left] and [right] means that the progress indicator will be on the left or on the right, respectively.
 /// [center] means that the progress indicator will be centered and will hide [child].
@@ -33,14 +67,15 @@ enum ProgressIndicatorLocation {
   right,
 }
 
+enum FutureButtonState {
+  success,
+  failed,
+  progress,
+  normal,
+}
+
 /// A generic class for all Future buttons.
 /// See [FutureRaisedButton] or any FutureButton for info on how to create your own Future button.
-/// [onPressed] - method that will be ran when user presses on the button.
-/// [progressIndicatorBuilder] - a builder for the progress indicator. [defaultMaterialProgressIndicatorBuilder] by default.
-/// [child] - the child of the button. Usually a [Text] widget.
-/// [progressIndicatorLocation] - where the progress indicator will be located. See [ProgressIndicatorLocation] for more info.
-/// [animationCurve] - the curve that's used when animating the size of the widget. Default is [Curves.easeInOut].
-/// [animationDuration] - how long does the size animation take. Default is `Duration(milliseconds: 150)`.
 abstract class GenericFutureButtonWidget extends StatefulWidget {
   /// A callback of type `Future<void> Function()`. This will be ran when user presses on the button.
   /// If the future is in progress, the loading indicator will be displayed.
@@ -60,6 +95,19 @@ abstract class GenericFutureButtonWidget extends StatefulWidget {
   /// See [ProgressIndicatorLocation] for more info.
   final ProgressIndicatorLocation progressIndicatorLocation;
 
+  /// Whether to show the result of the Future.
+  /// Will show [successIndicatorBuilder] if Future completes without errors.
+  /// Otherwise, will show [failureIndicatorBuilder].
+  final bool showResult;
+
+  /// Indicator to show when the Future is completed successfully.
+  /// Defaults to [defaultSuccessResultIndicatorBuilder].
+  final WidgetBuilder successIndicatorBuilder;
+
+  /// Indicator to show when the Future fails.
+  /// Defaults to [defaultFailureResultIndicatorBuilder].
+  final WidgetBuilder failureIndicatorBuilder;
+
   /// Curve that's used to animate the button size.
   /// Defaults to [Curves.easeInOut].
   final Curve animationCurve;
@@ -73,6 +121,9 @@ abstract class GenericFutureButtonWidget extends StatefulWidget {
     @required this.onPressed,
     @required this.child,
     this.progressIndicatorBuilder,
+    this.successIndicatorBuilder,
+    this.failureIndicatorBuilder,
+    this.showResult = false,
     ProgressIndicatorLocation progressIndicatorLocation,
     Curve animationCurve,
     Duration animationDuration,
@@ -88,19 +139,45 @@ abstract class GenericFutureButtonWidget extends StatefulWidget {
 /// If you want to implement your own Future button, take a look at [FutureRaisedButton] or other buttons.
 abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
     extends State<T> with SingleTickerProviderStateMixin {
-  bool _isLoading = false;
+  FutureButtonState _state = FutureButtonState.normal;
 
   /// Whether the future is in progress.
-  bool get isLoading => _isLoading;
+  bool get isLoading => _state != FutureButtonState.normal;
 
   /// Whether the button can be pressed.
   bool get isEnabled => !isLoading && widget.onPressed != null;
 
+  /// The builder for the indicator.
+  /// Returned widget is dependent on [_state] and can be one of
+  /// [_successIndicatorBuilder], [_failureIndicatorBuilder] or [_progressIndicatorBuilder].
+  WidgetBuilder get _indicatorBuilder {
+    switch (_state) {
+      case FutureButtonState.success:
+        return _successIndicatorBuilder;
+      case FutureButtonState.failed:
+        return _failureIndicatorBuilder;
+      case FutureButtonState.progress:
+        return _progressIndicatorBuilder;
+      default:
+        return null;
+    }
+  }
+
   /// The builder for the progress indicator.
   /// If none is passed, uses [defaultMaterialProgressIndicatorBuilder].
-  WidgetBuilder get progressIndicatorBuilder =>
+  WidgetBuilder get _progressIndicatorBuilder =>
       widget.progressIndicatorBuilder ??
       defaultMaterialProgressIndicatorBuilder;
+
+  /// The builder for the success indicator.
+  /// If none is passed, uses [defaultSuccessIndicatorBuilder].
+  WidgetBuilder get _successIndicatorBuilder =>
+      widget.successIndicatorBuilder ?? defaultSuccessResultIndicatorBuilder;
+
+  /// The builder for the failure indicator.
+  /// If none is passed, uses [defaultFailureIndicatorBuilder].
+  WidgetBuilder get _failureIndicatorBuilder =>
+      widget.failureIndicatorBuilder ?? defaultFailureResultIndicatorBuilder;
 
   /// [TextDirection] is used to indicate the order of the widgets in the button.
   /// If [widget.progressIndicatorLocation] is [ProgressIndicatorLocation.left], the order is normal.
@@ -140,13 +217,18 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
       return widget.child;
     } else if (widget.progressIndicatorLocation ==
         ProgressIndicatorLocation.center) {
-      return progressIndicatorBuilder(context);
+      return _indicatorBuilder(context);
     } else {
       return Row(
         mainAxisSize: MainAxisSize.min,
         textDirection: textDirection,
         children: [
-          progressIndicatorBuilder(context),
+          AnimatedSwitcher(
+            duration: widget.animationDuration,
+            switchInCurve: widget.animationCurve,
+            switchOutCurve: widget.animationCurve,
+            child: _indicatorBuilder(context),
+          ),
           SizedBox(width: 8.0),
           widget.child,
         ],
@@ -158,16 +240,35 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
   /// It awaits for the future to be finished.
   Future<void> onPressed() async {
     setState(() {
-      _isLoading = true;
+      _state = FutureButtonState.progress;
     });
 
+    Exception error;
     try {
       await widget.onPressed();
     } catch (e) {
-      rethrow;
-    } finally {
+      error = e;
+    }
+
+    if (!widget.showResult) {
       setState(() {
-        _isLoading = false;
+        _state = FutureButtonState.normal;
+      });
+
+      if (error != null) {
+        throw error;
+      }
+    } else {
+      setState(() {
+        _state = error == null
+            ? FutureButtonState.success
+            : FutureButtonState.failed;
+      });
+
+      await Future.delayed(const Duration(seconds: 2), () {
+        setState(() {
+          _state = FutureButtonState.normal;
+        });
       });
     }
   }

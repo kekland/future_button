@@ -51,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
             FutureRaisedButton(
               child: Text('Load'),
               onPressed: waitFor,
+              showResult: true,
             ),
             FutureRaisedButton(
               child: Text('Load (right)'),

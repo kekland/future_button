@@ -31,7 +31,10 @@ class FutureIconButton extends GenericFutureButtonWidget {
     @required Widget icon,
     Curve animationCurve,
     Duration animationDuration,
+    bool showResult = false,
     WidgetBuilder progressIndicatorBuilder,
+    WidgetBuilder successIndicatorBuilder,
+    WidgetBuilder failureIndicatorBuilder,
     this.iconSize = 24.0,
     this.visualDensity,
     this.padding = const EdgeInsets.all(8.0),
@@ -55,7 +58,10 @@ class FutureIconButton extends GenericFutureButtonWidget {
           onPressed: onPressed,
           animationCurve: animationCurve,
           animationDuration: animationDuration,
+          showResult: showResult,
           progressIndicatorBuilder: progressIndicatorBuilder,
+          successIndicatorBuilder: successIndicatorBuilder,
+          failureIndicatorBuilder: failureIndicatorBuilder,
           progressIndicatorLocation: ProgressIndicatorLocation.center,
         );
 
