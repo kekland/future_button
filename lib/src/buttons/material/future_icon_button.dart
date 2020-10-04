@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:future_button/src/generic_future_button.dart';
 
+/// A Future version of the material [IconButton].
+/// See [IconButton] for parameter descriptions.
 class FutureIconButton extends GenericFutureButtonWidget {
   final double iconSize;
   final VisualDensity visualDensity;
@@ -21,6 +23,8 @@ class FutureIconButton extends GenericFutureButtonWidget {
   final bool enableFeedback;
   final BoxConstraints constraints;
 
+  /// Default [FutureIconButton] constructor.
+  /// See [IconButton] for more info.
   FutureIconButton({
     Key key,
     @required FutureCallback onPressed,

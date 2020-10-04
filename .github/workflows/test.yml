@@ -17,4 +17,5 @@ jobs:
 
       - name: Run Flutter tests
         run: |
+          flutter analyze
           flutter test

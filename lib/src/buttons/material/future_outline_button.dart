@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:future_button/src/generic_future_button.dart';
 
+/// A Future version of the material [OutlineButton].
+/// See [OutlineButton] for parameter descriptions.
 class FutureOutlineButton extends GenericFutureButtonWidget {
   final Widget icon;
   final VoidCallback onLongPress;
@@ -25,6 +27,9 @@ class FutureOutlineButton extends GenericFutureButtonWidget {
   final FocusNode focusNode;
   final bool autofocus;
 
+  /// Default [FutureOutlineButton] constructor.
+  /// If you want to add an icon, see [FutureOutlineButton.icon].
+  /// See [OutlineButton] for more info.
   FutureOutlineButton({
     Key key,
     @required FutureCallback onPressed,
@@ -64,6 +69,8 @@ class FutureOutlineButton extends GenericFutureButtonWidget {
           progressIndicatorLocation: progressIndicatorLocation,
         );
 
+  /// A [FutureOutlineButton] with an icon.
+  /// See [OutlineButton.icon] for more info.
   FutureOutlineButton.icon({
     Key key,
     @required FutureCallback onPressed,
