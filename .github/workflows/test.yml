@@ -8,12 +8,14 @@ on:
 
 jobs:
   test:
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       
       - name: Install Flutter
-        uses: subosito/flutter-action@v1.3.2
+        uses: subosito/flutter-action@v1.4.0
 
       - name: Run Flutter tests
         run: |
