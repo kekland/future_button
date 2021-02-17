@@ -266,7 +266,7 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
       _state = FutureButtonState.progress;
     });
 
-    Exception error;
+    dynamic error;
     try {
       await widget.onPressed();
     } catch (e) {
