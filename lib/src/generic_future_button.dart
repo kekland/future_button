@@ -262,7 +262,7 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
   /// The `onPressed` callback wrapper.
   /// It awaits for the future to be finished.
   Future<void> onPressed() async {
-    setState(() {
+    setStateIfMounted(() {
       _state = FutureButtonState.progress;
     });
 
@@ -274,7 +274,7 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
     }
 
     if (!widget.showResult) {
-      setState(() {
+      setStateIfMounted(() {
         _state = FutureButtonState.normal;
       });
 
@@ -282,14 +282,14 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
         throw error;
       }
     } else {
-      setState(() {
+      setStateIfMounted(() {
         _state = error == null
             ? FutureButtonState.success
             : FutureButtonState.failed;
       });
 
       await Future.delayed(widget.resultIndicatorDuration, () {
-        setState(() {
+        setStateIfMounted(() {
           _state = FutureButtonState.normal;
         });
       });
@@ -317,5 +317,11 @@ abstract class GenericFutureButtonState<T extends GenericFutureButtonWidget>
       ),
       onPressed: isEnabled ? onPressed : null,
     );
+  }
+
+  void setStateIfMounted(VoidCallback fn) {
+    if (mounted) {
+      setState(fn);
+    }
   }
 }
