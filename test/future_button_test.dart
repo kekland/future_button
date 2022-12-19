@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:future_button/future_button.dart';
 
 class PlannedException implements Exception {}
@@ -265,58 +264,6 @@ void main() {
   );
 
   testButton(
-    name: 'FutureFlatButton',
-    builder: ({
-      FutureCallback onPressed,
-      WidgetBuilder progressIndicatorBuilder,
-      WidgetBuilder successIndicatorBuilder,
-      WidgetBuilder failureIndicatorBuilder,
-      bool showResult,
-      Widget child,
-      ProgressIndicatorLocation progressIndicatorLocation,
-    }) {
-      return FutureFlatButton(
-        child: child,
-        onPressed: onPressed,
-        progressIndicatorLocation: progressIndicatorLocation,
-        progressIndicatorBuilder: progressIndicatorBuilder,
-        successIndicatorBuilder: successIndicatorBuilder,
-        failureIndicatorBuilder: failureIndicatorBuilder,
-        showResult: showResult,
-        animationDuration: animationDuration,
-        animateTransitions: false,
-        resultIndicatorDuration: resultIndicatorDuration,
-      );
-    },
-  );
-
-  testButton(
-    name: 'FutureFlatButton.icon',
-    builder: ({
-      FutureCallback onPressed,
-      WidgetBuilder progressIndicatorBuilder,
-      WidgetBuilder successIndicatorBuilder,
-      WidgetBuilder failureIndicatorBuilder,
-      bool showResult,
-      Widget child,
-      ProgressIndicatorLocation progressIndicatorLocation,
-    }) {
-      return FutureFlatButton.icon(
-        icon: Icon(Icons.star),
-        label: child,
-        onPressed: onPressed,
-        progressIndicatorLocation: progressIndicatorLocation,
-        progressIndicatorBuilder: progressIndicatorBuilder,
-        successIndicatorBuilder: successIndicatorBuilder,
-        failureIndicatorBuilder: failureIndicatorBuilder,
-        showResult: showResult,
-        animationDuration: animationDuration,
-        animateTransitions: false,
-        resultIndicatorDuration: resultIndicatorDuration,
-      );
-    },
-  );
-  testButton(
     name: 'FutureIconButton',
     progressIndicatorLocations: [ProgressIndicatorLocation.center],
     builder: ({
@@ -395,6 +342,60 @@ void main() {
     },
   );
 
+  /*
+  testButton(
+    name: 'FutureFlatButton',
+    builder: ({
+      FutureCallback onPressed,
+      WidgetBuilder progressIndicatorBuilder,
+      WidgetBuilder successIndicatorBuilder,
+      WidgetBuilder failureIndicatorBuilder,
+      bool showResult,
+      Widget child,
+      ProgressIndicatorLocation progressIndicatorLocation,
+    }) {
+      return FutureFlatButton(
+        child: child,
+        onPressed: onPressed,
+        progressIndicatorLocation: progressIndicatorLocation,
+        progressIndicatorBuilder: progressIndicatorBuilder,
+        successIndicatorBuilder: successIndicatorBuilder,
+        failureIndicatorBuilder: failureIndicatorBuilder,
+        showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
+        resultIndicatorDuration: resultIndicatorDuration,
+      );
+    },
+  );
+
+  testButton(
+    name: 'FutureFlatButton.icon',
+    builder: ({
+      FutureCallback onPressed,
+      WidgetBuilder progressIndicatorBuilder,
+      WidgetBuilder successIndicatorBuilder,
+      WidgetBuilder failureIndicatorBuilder,
+      bool showResult,
+      Widget child,
+      ProgressIndicatorLocation progressIndicatorLocation,
+    }) {
+      return FutureFlatButton.icon(
+        icon: Icon(Icons.star),
+        label: child,
+        onPressed: onPressed,
+        progressIndicatorLocation: progressIndicatorLocation,
+        progressIndicatorBuilder: progressIndicatorBuilder,
+        successIndicatorBuilder: successIndicatorBuilder,
+        failureIndicatorBuilder: failureIndicatorBuilder,
+        showResult: showResult,
+        animationDuration: animationDuration,
+        animateTransitions: false,
+        resultIndicatorDuration: resultIndicatorDuration,
+      );
+    },
+  );
+
   testButton(
     name: 'FutureRaisedButton',
     builder: ({
@@ -421,7 +422,7 @@ void main() {
     },
   );
 
-  testButton(
+ testButton(
     name: 'FutureRaisedButton.icon',
     builder: ({
       FutureCallback onPressed,
@@ -446,5 +447,5 @@ void main() {
         resultIndicatorDuration: resultIndicatorDuration,
       );
     },
-  );
+  );*/
 }
