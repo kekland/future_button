@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FutureRaisedButton(
+            /*FutureRaisedButton(
               child: Text('Load'),
               onPressed: waitFor,
               showResult: true,
@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
               label: Text('Star'),
               onPressed: waitFor,
               showResult: false,
-            ),
+            ),*/
             FutureIconButton(
               icon: Icon(Icons.link),
               onPressed: waitFor,

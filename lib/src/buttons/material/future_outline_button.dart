@@ -143,56 +143,138 @@ class _FutureOutlineButtonState
     VoidCallback onPressed,
   }) {
     if (widget.icon != null) {
-      return OutlineButton.icon(
+      return OutlinedButton.icon(
         icon: widget.icon,
         label: child,
         onPressed: isEnabled ? onPressed : null,
         onLongPress: widget.onLongPress,
-        mouseCursor: widget.mouseCursor,
-        textTheme: widget.textTheme,
-        textColor: widget.textColor,
-        disabledTextColor: widget.disabledTextColor,
-        color: widget.color,
-        focusColor: widget.focusColor,
-        hoverColor: widget.hoverColor,
-        highlightColor: widget.highlightColor,
-        splashColor: widget.splashColor,
-        highlightElevation: widget.highlightElevation,
-        padding: widget.padding,
-        visualDensity: widget.visualDensity,
-        shape: widget.shape,
+        style: ElevatedButton.styleFrom(
+          //textTheme: widget.textTheme,
+          // highlightColor: widget.highlightColor,
+          primary: widget.color,
+          onPrimary: widget.textColor,
+          padding: widget.padding,
+          visualDensity: widget.visualDensity,
+          shape: widget.shape,
+          enabledMouseCursor: widget.mouseCursor,
+          disabledMouseCursor: widget.mouseCursor,
+        ).copyWith(
+          side: MaterialStateProperty.resolveWith<BorderSide>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.pressed)) {
+                final color = states.contains(MaterialState.pressed)
+                    ? widget.highlightedBorderColor
+                    : states.contains(MaterialState.disabled)
+                        ? widget.disabledBorderColor
+                        : null;
+
+                return widget.borderSide.copyWith(
+                  color: color,
+                );
+              }
+              return null; // Defer to the widget's default.
+            },
+          ),
+          elevation: MaterialStateProperty.resolveWith<double>(
+              (Set<MaterialState> states) {
+            if (states.contains(MaterialState.pressed)) {
+              return widget.highlightElevation;
+            }
+            return null;
+          }),
+          overlayColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.focused)) {
+                return widget.focusColor;
+              }
+              if (states.contains(MaterialState.hovered)) {
+                return widget.hoverColor;
+              }
+              if (states.contains(MaterialState.pressed)) {
+                return widget.splashColor;
+              }
+              return null; // Defer to the widget's default.
+            },
+          ),
+          foregroundColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.disabled)) {
+                return widget.disabledTextColor;
+              }
+              return null; // Defer to the widget's default.
+            },
+          ),
+        ),
         focusNode: widget.focusNode,
         autofocus: widget.autofocus,
         clipBehavior: widget.clipBehavior,
-        borderSide: widget.borderSide,
-        disabledBorderColor: widget.disabledBorderColor,
-        highlightedBorderColor: widget.highlightedBorderColor,
       );
     }
 
-    return OutlineButton(
+    return OutlinedButton(
       child: child,
       onPressed: isEnabled ? onPressed : null,
       onLongPress: widget.onLongPress,
-      mouseCursor: widget.mouseCursor,
-      textTheme: widget.textTheme,
-      textColor: widget.textColor,
-      disabledTextColor: widget.disabledTextColor,
-      color: widget.color,
-      focusColor: widget.focusColor,
-      hoverColor: widget.hoverColor,
-      highlightColor: widget.highlightColor,
-      splashColor: widget.splashColor,
-      highlightElevation: widget.highlightElevation,
-      padding: widget.padding,
-      visualDensity: widget.visualDensity,
-      shape: widget.shape,
+      style: ElevatedButton.styleFrom(
+        //textTheme: widget.textTheme,
+        // highlightColor: widget.highlightColor,
+        primary: widget.color,
+        onPrimary: widget.textColor,
+        padding: widget.padding,
+        visualDensity: widget.visualDensity,
+        shape: widget.shape,
+        enabledMouseCursor: widget.mouseCursor,
+        disabledMouseCursor: widget.mouseCursor,
+      ).copyWith(
+        side: MaterialStateProperty.resolveWith<BorderSide>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.pressed)) {
+              final color = states.contains(MaterialState.pressed)
+                  ? widget.highlightedBorderColor
+                  : states.contains(MaterialState.pressed)
+                      ? widget.disabledBorderColor
+                      : null;
+
+              return widget.borderSide.copyWith(
+                color: color,
+              );
+            }
+            return null; // Defer to the widget's default.
+          },
+        ),
+        elevation: MaterialStateProperty.resolveWith<double>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.pressed)) {
+            return widget.highlightElevation;
+          }
+          return null;
+        }),
+        overlayColor: MaterialStateProperty.resolveWith<Color>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.focused)) {
+              return widget.focusColor;
+            }
+            if (states.contains(MaterialState.hovered)) {
+              return widget.hoverColor;
+            }
+            if (states.contains(MaterialState.pressed)) {
+              return widget.splashColor;
+            }
+            return null; // Defer to the widget's default.
+          },
+        ),
+        foregroundColor: MaterialStateProperty.resolveWith<Color>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.disabled)) {
+              return widget.disabledTextColor;
+            }
+            return null; // Defer to the widget's default.
+          },
+        ),
+      ),
       focusNode: widget.focusNode,
       autofocus: widget.autofocus,
       clipBehavior: widget.clipBehavior,
-      borderSide: widget.borderSide,
-      disabledBorderColor: widget.disabledBorderColor,
-      highlightedBorderColor: widget.highlightedBorderColor,
     );
   }
 }
